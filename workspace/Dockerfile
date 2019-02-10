@@ -64,7 +64,7 @@ RUN apk update && apk upgrade \
     && usermod -u 1001 node \
     && npm install -g npm@latest \
     && if [ ${INSTALL_NPM_VUE_CLI} = true ]; then \
-        npm install -g @vue/cli \
+        npm install -g @vue/cli @vue/cli-init \
     ;fi \
     && apk del .build-deps \
     # Add a non-root user
@@ -87,6 +87,16 @@ RUN apk update && apk upgrade \
     && apk del tzdata \
     # Remove cache
     && rm -rf /tmp/* /var/cache/apk/*
+
+#####################################################################
+# Quasar Framework:
+#####################################################################
+
+ARG INSTALL_NPM_QUASAR_CLI=false
+
+RUN if [ ${INSTALL_NPM_QUASAR_CLI} = true ]; then \
+    npm install -g @quasar/cli \
+;fi
 
 #####################################################################
 # User Aliases:
@@ -135,6 +145,7 @@ RUN git config --global user.name "$GIT_NAME" \
 USER infradocker
 
 ARG INSTALL_NPM_VUE_CLI=false
+ARG INSTALL_NPM_QUASAR_CLI=false
 
 RUN printf "\n\033[1;36mDate:\033[0m\n" \
     && date \
@@ -149,6 +160,10 @@ RUN printf "\n\033[1;36mDate:\033[0m\n" \
     && if [ ${INSTALL_NPM_VUE_CLI} = true ]; then \
         printf "\n\033[1;36mCheck Vue Cli Version:\033[0m\n" \
         && vue --version \
+    ;fi \
+    && if [ ${INSTALL_NPM_QUASAR_CLI} = true ]; then \
+        printf "\n\033[1;36mCheck Quasar Cli Version:\033[0m\n" \
+        && quasar -v \
     ;fi \
     && printf "\n\033[1;36mCheck Yarn Version:\033[0m\n" \
     && yarn -v \

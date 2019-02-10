@@ -33,6 +33,7 @@ services:
         - TZ=${WORKSPACE_TIMEZONE}
         # Install
         - INSTALL_NPM_VUE_CLI=${WORKSPACE_INSTALL_NPM_VUE_CLI}
+        - INSTALL_NPM_QUASAR_CLI=${WORKSPACE_INSTALL_NPM_QUASAR_CLI}
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
     volumes:
