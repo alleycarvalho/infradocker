@@ -43,6 +43,7 @@ services:
     tty: true
     ports:
       - "${WORKSPACE_SSH_PORT}:22"
+      - "${WORKSPACE_QUASAR_PORT}:8080"
     networks:
       - backend
       - frontend
